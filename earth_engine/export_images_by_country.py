@@ -10,6 +10,7 @@ import urllib as ur
 from google.cloud import storage
 from google.auth.transport.requests import AuthorizedSession
 from google.oauth2 import service_account
+from multiprocessing import Process
 
 PROJECT = 'omdena-wri'
 SERVICE_ACCOUNT_STR ='sa1-311@omdena-wri.iam.gserviceaccount.com'
@@ -19,14 +20,14 @@ COLLECTION = 'MODIS'
 
 
 def authenticate(project, service_account_str, key):
-    # # GCP instructions
-    # # 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts)
+    # # # GCP instructions
+    # # # 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts)
 
-    # https://colab.research.google.com/github/google/earthengine-api/blob/master/python/examples/ipynb/Earth_Engine_REST_API_Quickstart.ipynb#scrollTo=6QksNfvaY5em
-    # login to Google Cloud
-    os.system(F'gcloud auth login --project {project}')
-    # define service account credentials
-    os.system(F'gcloud iam service-accounts keys create {key} --iam-account {service_account_str}')
+    # # https://colab.research.google.com/github/google/earthengine-api/blob/master/python/examples/ipynb/Earth_Engine_REST_API_Quickstart.ipynb#scrollTo=6QksNfvaY5em
+    # # login to Google Cloud
+    # os.system(F'gcloud auth login --project {project}')
+    # # define service account credentials
+    # os.system(F'gcloud iam service-accounts keys create {key} --iam-account {service_account_str}')
     # create authorized session to make HTTP requests
     credentials = service_account.Credentials.from_service_account_file(key)
     scoped_credentials = credentials.with_scopes(
@@ -153,11 +154,11 @@ def export_collection_metadata(session, bucket, collection_str, country_alpha3):
     collection_metadata.to_csv(F'gs://{bucket}/earth_engine/metadata/{collection_str}/{country_alpha3}.csv', index=False)
 
 
-def get_missing_images(image_path, metadata, bucket):
+def get_missing_images(image_path, metadata, bucket, country_alpha3):
     images_desired = list(map(lambda x: F"{image_path}{x.replace('/', '-')}.tif", metadata['image_id']))
     images_complete = get_file_names(bucket, image_path, '.tif')
     images_missing = np.setdiff1d(images_desired, images_complete)
-    print(F'{len(images_missing)}/{len(images_desired)} images remaining...')
+    print(F'{len(images_missing)}/{len(images_desired)} images remaining {country_alpha3}...')
     return list(map(lambda x: F"{x.replace('-', '/').replace('.tif', '')}", images_missing))
 
 
@@ -168,17 +169,19 @@ def export_collection_images(bucket, collection_str, country_alpha3):
     metadata = pd.read_csv(F'gs://{bucket}/earth_engine/metadata/{collection_str}/{country_alpha3}.csv')
 
     image_path = F'earth_engine/images_tif/{collection_str}/{country_alpha3}/'
-    images_missing = get_missing_images(image_path, metadata, bucket)
-
+    images_missing = get_missing_images(image_path, metadata, bucket, country_alpha3)
     if len(images_missing) > 0:
         for image_id in tqdm(images_missing, total=len(images_missing), desc=F'Exporting {country_alpha3} {collection_str} images... '):
             if collection_str == 'MODIS':
-                image = ee.Image(image_id.replace(image_path, '')).select('LST_Day_1km').clip(poly) 
-                image_fn = image_id.replace('/', '-')
+                ee_image_id = image_id.replace(image_path, '')
+                image_fn = ee_image_id.replace('/', '-')
+                image_fp = F'earth_engine/images_tif/{collection_str}/{country_alpha3}/{image_fn}'
+
+                image = ee.Image(ee_image_id).select('LST_Day_1km').clip(poly) 
                 task = ee.batch.Export.image.toCloudStorage(**{
                     'image': image,
                     'bucket': bucket,
-                    'fileNamePrefix': F'earth_engine/images_tif/{collection_str}/{country_alpha3}/{image_fn}',
+                    'fileNamePrefix': image_fp,
                     'region': poly,
                     'fileFormat': 'GeoTIFF',
                     'scale': 1000,
@@ -186,8 +189,11 @@ def export_collection_images(bucket, collection_str, country_alpha3):
                     'maxPixels': 1e10
                 })
                 task.start()
-            # avoid too many calls too fast
-            time.sleep(1)
+
+                while task.status()['state'] in ['READY', 'RUNNING']:
+                    time.sleep(5)
+                else:
+                    continue
 
 
 def get_missing_metadata(countries_dict, bucket, collection_str):
@@ -199,6 +205,11 @@ def get_missing_metadata(countries_dict, bucket, collection_str):
     # country alpha 3 code
     return list(map(lambda x: F"{x.replace(metadata_path, '').replace('.csv', '')}", metadata_missing))
 
+def get_countries_with_complete_metadata(countries_dict, BUCKET, COLLECTION):
+    missing_countries = get_missing_metadata(countries_dict, BUCKET, COLLECTION)
+    complete_countries = np.setdiff1d(list(countries_dict.keys()), missing_countries)
+    return complete_countries
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -206,6 +217,7 @@ if __name__ == '__main__':
     parser.add_argument("--download-images", "-di", dest="download_images", action="store_true")
     args = parser.parse_args()
     
+    # TODO: only need session for list of image ids
     session = authenticate(PROJECT, SERVICE_ACCOUNT_STR, KEY)
     countries_dict = get_platform_countries()
 
@@ -215,20 +227,30 @@ if __name__ == '__main__':
         for country_alpha3 in countries:
             try:
                 export_collection_metadata(session, BUCKET, COLLECTION, country_alpha3)
-                status = 'SUCCESS'
-                e = None
+            #     status = 'SUCCESS'
+            #     e = None
             except Exception as e:
-                status = 'FAIL'
+                print(country_alpha3, e)
+                # status = 'FAIL'
                 continue
-            metadata_log = pd.DataFrame({
-                'country_alpha3': [country_alpha3], 
-                'status': [status], 
-                'exception': [e],
-            })
-            metadata_logs.append(metadata_log)
-        metadata_log = pd.concat(metadata_logs)
-        metadata_log.to_csv(F'{COLLECTION}_metadata_log.csv', index=False)
+        #     print(e)
+        #     metadata_log = pd.DataFrame({
+        #         'country_alpha3': [country_alpha3], 
+        #         'status': [status], 
+        #         'exception': [e],
+        #     })
+        #     metadata_logs.append(metadata_log)
+        # metadata_log = pd.concat(metadata_logs)
+        # metadata_log.to_csv(F'{COLLECTION}_metadata_log.csv', index=False)
     
     if args.download_images:
-        for country_alpha3 in countries_dict.keys():
-            export_collection_images(BUCKET, COLLECTION, country_alpha3)
+        processes = []
+        countries = get_countries_with_complete_metadata(countries_dict, BUCKET, COLLECTION)
+        for country_alpha3 in countries:
+            p = Process(target=export_collection_images, args=(BUCKET, COLLECTION, country_alpha3))
+            p.start()
+            processes.append(p)
+
+        for p in processes:
+            p.join()
+            
