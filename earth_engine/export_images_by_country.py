@@ -16,27 +16,27 @@ PROJECT = 'omdena-wri'
 SERVICE_ACCOUNT_STR ='sa1-311@omdena-wri.iam.gserviceaccount.com'
 KEY = 'private-key.json'
 BUCKET = '1182020'
-COLLECTION = 'MODIS'
 
 
-def authenticate(project, service_account_str, key):
+def get_session(project, service_account_str, key, collection):
+    if collection == 'hansen_forest_change':
+        return None
+    
+    # only needed to get full list of image ids
+
     # # # GCP instructions
     # # # 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts)
 
     # # https://colab.research.google.com/github/google/earthengine-api/blob/master/python/examples/ipynb/Earth_Engine_REST_API_Quickstart.ipynb#scrollTo=6QksNfvaY5em
-    # # login to Google Cloud
-    # os.system(F'gcloud auth login --project {project}')
-    # # define service account credentials
-    # os.system(F'gcloud iam service-accounts keys create {key} --iam-account {service_account_str}')
+    # login to Google Cloud
+    os.system(F'gcloud auth login --project {project}')
+    # define service account credentials
+    os.system(F'gcloud iam service-accounts keys create {key} --iam-account {service_account_str}')
     # create authorized session to make HTTP requests
     credentials = service_account.Credentials.from_service_account_file(key)
     scoped_credentials = credentials.with_scopes(
         ['https://www.googleapis.com/auth/cloud-platform'])
     session = AuthorizedSession(scoped_credentials)
-
-    # Authenticate and initialize Earth Engine.
-    os.system(F'earthengine authenticate')
-    ee.Initialize()
     return session
 
 
@@ -52,6 +52,7 @@ def get_platform_countries():
 
 def get_country_geojson(country_alpha3):
     # create geojson file from url
+    # source: https://github.com/johan/world.geo.json/tree/master/countries
     url = F'https://raw.githubusercontent.com/johan/world.geo.json/master/countries/{country_alpha3}.geo.json'
     with ur.request.urlopen(url) as response:
         data = json.loads(response.read().decode())
@@ -71,6 +72,19 @@ def get_date_ranges(asset_id):
         # goes back to 2000-03-05 but will go back 10 years
         # API call maxes at 1000 image file names --> 1 year at a time
         start_date = '1/1/2010'
+        end_date = '1/1/2020'
+        dates = pd.date_range(start=start_date, end=end_date, freq='AS')
+    elif asset_id == 'MODIS/006/MOD11A2':
+        # each image is an average of last 8 days
+        # goes back to 2000-03-05 but will go back 5 years
+        # API call maxes at 1000 image file names --> 1 year at a time
+        start_date = '1/1/2015'
+        end_date = '1/1/2020'
+        dates = pd.date_range(start=start_date, end=end_date, freq='AS')
+
+    elif asset_id == 'MODIS/006/MCD12Q1':
+        # annual images
+        start_date = '1/1/2001'
         end_date = '1/1/2020'
         dates = pd.date_range(start=start_date, end=end_date, freq='AS')
 
@@ -113,20 +127,31 @@ def get_image_ids(session, asset_id, country_alpha3, coords):
 
 
 def get_image_metadata(collection_str, image_id, country_alpha3, poly):
-    if collection_str == 'MODIS':
+    if collection_str in ['MODIS_LST_day',  'MODIS_LST_8day']:
         image = ee.Image(image_id).select('LST_Day_1km').clip(poly) 
-        prop = 'system:time_start'
-    # to use later for other collections, I know all I want is 1 band and the start time of the image for MODIS
-    # properties = image.propertyNames().getInfo()
-    # print(properties)
+        properties = ['system:time_start', 'system:bands', 'system:band_names']
+    elif collection_str == 'MODIS_land_cover':
+        image = ee.Image(image_id).clip(poly) 
+        properties = ['system:time_start', 'system:version', 'system:bands', 'system:band_names']
+    else:
+        image = ee.Image(image_id).clip(poly) 
+        properties = image.propertyNames().getInfo()
 
-    prop_value = image.get(prop).getInfo()
     df = pd.DataFrame({
-        'alpha3code':[country_alpha3],
-        'image_id':[image_id],
-        prop:[prop_value],
-    })
-    df['image_timestamp'] = pd.to_datetime(df[prop], unit='ms', utc=True)
+            'alpha3code':[country_alpha3],
+            'image_id':[image_id],
+        })
+
+    for prop in properties:
+        prop_value = image.get(prop).getInfo()
+        if prop == 'system:time_start':
+            df[prop] = prop_value
+            df['image_timestamp'] = pd.to_datetime(df[prop], unit='ms', utc=True)
+        else:
+            if type(prop_value) not in [str, int, float]:
+                # assume list type or dict
+                prop_value = [prop_value]
+            df[prop] = prop_value 
     return df
 
 
@@ -137,14 +162,26 @@ def get_file_names(bucket_str, path, file_extension):
     return [blob.name for blob in blobs if blob.name.endswith(file_extension)]
 
 
-def export_collection_metadata(session, bucket, collection_str, country_alpha3):
+def export_collection_metadata(bucket, collection_str, country_alpha3, session=None):
     poly, coords = country_poly(country_alpha3)
 
-    if collection_str == 'MODIS':
+    if collection_str == 'MODIS_LST_day':
         # https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MOD11A1
         asset_id = 'MODIS/006/MOD11A1'
-
-    image_ids = get_image_ids(session, asset_id, country_alpha3, coords)
+        image_ids = get_image_ids(session, asset_id, country_alpha3, coords)
+    elif collection_str == 'MODIS_LST_8day':
+        # https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MOD11A2
+        asset_id = 'MODIS/006/MOD11A2'
+        image_ids = get_image_ids(session, asset_id, country_alpha3, coords)
+    elif collection_str == 'MODIS_land_cover':
+        # https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD12Q1
+        asset_id = 'MODIS/006/MCD12Q1'
+        image_ids = get_image_ids(session, asset_id, country_alpha3, coords)
+    elif collection_str == 'hansen_forest_change':
+        # https://developers.google.com/earth-engine/datasets/catalog/UMD_hansen_global_forest_change_2019_v1_7
+        asset_id = "UMD/hansen/global_forest_change_2019_v1_7"
+        image_ids = ['UMD/hansen/global_forest_change_2019_v1_7']
+    
     collection_metadata = []
     for image_id in tqdm(image_ids, total=len(image_ids), desc=F'Exporting {country_alpha3} {collection_str} metadata... '):
         image_metadata = get_image_metadata(collection_str, image_id, country_alpha3, poly)
@@ -162,38 +199,61 @@ def get_missing_images(image_path, metadata, bucket, country_alpha3):
     return list(map(lambda x: F"{x.replace('-', '/').replace('.tif', '')}", images_missing))
 
 
-def export_collection_images(bucket, collection_str, country_alpha3):
+def export_collection_images(bucket, collection_str, country_alpha3, years=None):
     # https://colab.research.google.com/github/csaybar/EEwPython/blob/dev/10_Export.ipynb
 
+    ee.Initialize()
+    
     poly, coords = country_poly(country_alpha3)
     metadata = pd.read_csv(F'gs://{bucket}/earth_engine/metadata/{collection_str}/{country_alpha3}.csv')
 
+    if collection_str == 'MODIS':
+        assert years <= 9, F'Metdata collected starts 1/1/2010 and ends 12/31/2019.'
+        # filter metadata for past n years only
+        metadata['image_timestamp'] = pd.to_datetime(metadata['image_timestamp'], infer_datetime_format=True)
+        filter_date = pd.to_datetime(F'{2010+years}-01-01 00:00:00+00:00', infer_datetime_format=True)
+        metadata = metadata[metadata['image_timestamp'] >= filter_date]
+
+    # missing images
     image_path = F'earth_engine/images_tif/{collection_str}/{country_alpha3}/'
     images_missing = get_missing_images(image_path, metadata, bucket, country_alpha3)
+
     if len(images_missing) > 0:
         for image_id in tqdm(images_missing, total=len(images_missing), desc=F'Exporting {country_alpha3} {collection_str} images... '):
-            if collection_str == 'MODIS':
-                ee_image_id = image_id.replace(image_path, '')
-                image_fn = ee_image_id.replace('/', '-')
-                image_fp = F'earth_engine/images_tif/{collection_str}/{country_alpha3}/{image_fn}'
+            ee_image_id = image_id.replace(image_path, '')
+            image_fn = ee_image_id.replace('/', '-')
+            image_fp = F'earth_engine/images_tif/{collection_str}/{country_alpha3}/{image_fn}'
 
+            if collection_str in ['MODIS_LST_day',  'MODIS_LST_8day']:
                 image = ee.Image(ee_image_id).select('LST_Day_1km').clip(poly) 
                 task = ee.batch.Export.image.toCloudStorage(**{
-                    'image': image,
-                    'bucket': bucket,
-                    'fileNamePrefix': image_fp,
-                    'region': poly,
-                    'fileFormat': 'GeoTIFF',
-                    'scale': 1000,
-                    'crs': 'EPSG:4326',
-                    'maxPixels': 1e10
+                'image': image,
+                'bucket': bucket,
+                'fileNamePrefix': image_fp,
+                'region': poly,
+                'fileFormat': 'GeoTIFF',
+                'scale': 1000,
+                'crs': 'EPSG:4326',
+                'maxPixels': 1e10
                 })
-                task.start()
+            else:
+                image = ee.Image(ee_image_id).clip(poly) 
+                task = ee.batch.Export.image.toCloudStorage(**{
+                'image': image,
+                'bucket': bucket,
+                'fileNamePrefix': image_fp,
+                'region': poly,
+                'fileFormat': 'GeoTIFF',
+                'maxPixels': 5e10
+                })
 
-                while task.status()['state'] in ['READY', 'RUNNING']:
-                    time.sleep(5)
-                else:
-                    continue
+            task.start()
+
+            while task.status()['state'] in ['READY', 'RUNNING']:
+                time.sleep(5)
+            else:
+                print(task.status())
+                continue
 
 
 def get_missing_metadata(countries_dict, bucket, collection_str):
@@ -213,44 +273,66 @@ def get_countries_with_complete_metadata(countries_dict, BUCKET, COLLECTION):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    # TODO: rename MODIS to MODIS_land_temperature
+    parser.add_argument("--collection", "-c", type=str, required=True, help='MODIS_LST_day, MODIS_LST_8day, MODIS_land_cover, or hansen_forest_change')
     parser.add_argument("--download-metadata", "-dm", dest="download_metadata", action="store_true")
     parser.add_argument("--download-images", "-di", dest="download_images", action="store_true")
     args = parser.parse_args()
-    
-    # TODO: only need session for list of image ids
-    session = authenticate(PROJECT, SERVICE_ACCOUNT_STR, KEY)
+    collection = args.collection
+    assert args.collection in [
+        'MODIS_LST_day', 
+        'MODIS_LST_8day', 
+        'MODIS_land_cover',
+        'hansen_forest_change'
+    ], F'Earth Engine collection {collection} not supported.'
+
+    # # # TESTING
+    # ee.Initialize()
+    # session = get_session(PROJECT, SERVICE_ACCOUNT_STR, KEY, collection)
+    # countries_dict = get_platform_countries()
+    # countries = get_missing_metadata(countries_dict, BUCKET, collection)
+    # country = countries[0]
+    # export_collection_metadata(BUCKET, collection, country, session)
+
     countries_dict = get_platform_countries()
 
     if args.download_metadata:
-        countries = get_missing_metadata(countries_dict, BUCKET, COLLECTION)
+        ee.Initialize()
+        session = get_session(PROJECT, SERVICE_ACCOUNT_STR, KEY, collection)
+        countries = get_missing_metadata(countries_dict, BUCKET, collection)
         metadata_logs = []
         for country_alpha3 in countries:
+            error = []
             try:
-                export_collection_metadata(session, BUCKET, COLLECTION, country_alpha3)
-            #     status = 'SUCCESS'
-            #     e = None
+                export_collection_metadata(BUCKET, collection, country_alpha3, session)
+                status = 'SUCCESS'
+                error.append(None)
             except Exception as e:
                 print(country_alpha3, e)
-                # status = 'FAIL'
+                status = 'FAIL'
+                error.append(e)
                 continue
-        #     print(e)
-        #     metadata_log = pd.DataFrame({
-        #         'country_alpha3': [country_alpha3], 
-        #         'status': [status], 
-        #         'exception': [e],
-        #     })
-        #     metadata_logs.append(metadata_log)
-        # metadata_log = pd.concat(metadata_logs)
-        # metadata_log.to_csv(F'{COLLECTION}_metadata_log.csv', index=False)
+
+            metadata_log = pd.DataFrame({
+                'country_alpha3': [country_alpha3], 
+                'status': [status], 
+                'exception': error,
+            })
+            metadata_logs.append(metadata_log)
+        metadata_log = pd.concat(metadata_logs)
+        metadata_log.to_csv(F'{collection}_metadata_log.csv', index=False)
     
     if args.download_images:
         processes = []
-        countries = get_countries_with_complete_metadata(countries_dict, BUCKET, COLLECTION)
+        countries = get_countries_with_complete_metadata(countries_dict, BUCKET, collection)
         for country_alpha3 in countries:
-            p = Process(target=export_collection_images, args=(BUCKET, COLLECTION, country_alpha3))
+            if collection == 'MODIS':
+                p = Process(target=export_collection_images, args=(BUCKET, collection, country_alpha3, 5))
+            else:
+                p = Process(target=export_collection_images, args=(BUCKET, collection, country_alpha3))
+
             p.start()
             processes.append(p)
 
         for p in processes:
             p.join()
-            
