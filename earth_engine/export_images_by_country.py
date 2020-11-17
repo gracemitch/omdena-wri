@@ -41,8 +41,8 @@ def get_session(project, service_account_str, key, collection):
 
 
 def get_platform_countries():
-    areas_by_platform = pd.read_csv('./platforms/areas_served_by_platform.csv')
-    country_codes = pd.read_csv('./platforms/country_codes.csv').rename(columns={'country': 'country_clean'})
+    areas_by_platform = pd.read_csv('./analysis/platforms/areas_served_by_platform.csv')
+    country_codes = pd.read_csv('./analysis/platforms/country_codes.csv').rename(columns={'country': 'country_clean'})
     countries = areas_by_platform[['platform', 'country', 'country_clean']].drop_duplicates()
     countries = countries.merge(country_codes, how='left', on=['country_clean'])
     countries = countries[['country', 'alpha3code']].drop_duplicates()
