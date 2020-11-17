@@ -81,10 +81,15 @@ def get_date_ranges(asset_id):
         start_date = '1/1/2015'
         end_date = '1/1/2020'
         dates = pd.date_range(start=start_date, end=end_date, freq='AS')
-
     elif asset_id == 'MODIS/006/MCD12Q1':
         # annual images
         start_date = '1/1/2001'
+        end_date = '1/1/2020'
+        dates = pd.date_range(start=start_date, end=end_date, freq='AS')
+    elif asset_id == 'NASA_USDA/HSL/SMAP_soil_moisture':
+        # image every 3 days
+        # goes back to 2015-04-01 but will go back 3 years
+        start_date = '1/1/2017'
         end_date = '1/1/2020'
         dates = pd.date_range(start=start_date, end=end_date, freq='AS')
 
@@ -179,8 +184,12 @@ def export_collection_metadata(bucket, collection_str, country_alpha3, session=N
         image_ids = get_image_ids(session, asset_id, country_alpha3, coords)
     elif collection_str == 'hansen_forest_change':
         # https://developers.google.com/earth-engine/datasets/catalog/UMD_hansen_global_forest_change_2019_v1_7
-        asset_id = "UMD/hansen/global_forest_change_2019_v1_7"
+        asset_id = 'UMD/hansen/global_forest_change_2019_v1_7'
         image_ids = ['UMD/hansen/global_forest_change_2019_v1_7']
+    elif collection_str == 'SMAP_soil_moisture':
+        # https://developers.google.com/earth-engine/datasets/catalog/NASA_USDA_HSL_SMAP_soil_moisture
+        asset_id = 'NASA_USDA/HSL/SMAP_soil_moisture'
+        image_ids = get_image_ids(session, asset_id, country_alpha3, coords)
     
     collection_metadata = []
     for image_id in tqdm(image_ids, total=len(image_ids), desc=F'Exporting {country_alpha3} {collection_str} metadata... '):
@@ -207,7 +216,7 @@ def export_collection_images(bucket, collection_str, country_alpha3, years=None)
     poly, coords = country_poly(country_alpha3)
     metadata = pd.read_csv(F'gs://{bucket}/earth_engine/metadata/{collection_str}/{country_alpha3}.csv')
 
-    if collection_str == 'MODIS':
+    if collection_str == 'MODIS_LST_day':
         assert years <= 9, F'Metdata collected starts 1/1/2010 and ends 12/31/2019.'
         # filter metadata for past n years only
         metadata['image_timestamp'] = pd.to_datetime(metadata['image_timestamp'], infer_datetime_format=True)
@@ -274,7 +283,8 @@ def get_countries_with_complete_metadata(countries_dict, BUCKET, COLLECTION):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # TODO: rename MODIS to MODIS_land_temperature
-    parser.add_argument("--collection", "-c", type=str, required=True, help='MODIS_LST_day, MODIS_LST_8day, MODIS_land_cover, or hansen_forest_change')
+    parser.add_argument("--collection", "-c", type=str, required=True, \
+    help='MODIS_LST_day, MODIS_LST_8day, MODIS_land_cover, hansen_forest_change, or SMAP_soil_moisture')
     parser.add_argument("--download-metadata", "-dm", dest="download_metadata", action="store_true")
     parser.add_argument("--download-images", "-di", dest="download_images", action="store_true")
     args = parser.parse_args()
@@ -283,7 +293,8 @@ if __name__ == '__main__':
         'MODIS_LST_day', 
         'MODIS_LST_8day', 
         'MODIS_land_cover',
-        'hansen_forest_change'
+        'hansen_forest_change',
+        'SMAP_soil_moisture'
     ], F'Earth Engine collection {collection} not supported.'
 
     # # # TESTING
@@ -312,13 +323,14 @@ if __name__ == '__main__':
                 status = 'FAIL'
                 error.append(e)
                 continue
-
-            metadata_log = pd.DataFrame({
-                'country_alpha3': [country_alpha3], 
-                'status': [status], 
-                'exception': error,
-            })
-            metadata_logs.append(metadata_log)
+            finally:
+                print(country_alpha3, error)
+                metadata_log = pd.DataFrame({
+                    'country_alpha3': [country_alpha3], 
+                    'status': [status], 
+                    'exception': error,
+                })
+                metadata_logs.append(metadata_log)
         metadata_log = pd.concat(metadata_logs)
         metadata_log.to_csv(F'{collection}_metadata_log.csv', index=False)
     
@@ -326,7 +338,7 @@ if __name__ == '__main__':
         processes = []
         countries = get_countries_with_complete_metadata(countries_dict, BUCKET, collection)
         for country_alpha3 in countries:
-            if collection == 'MODIS':
+            if collection == 'MODIS_LST_day':
                 p = Process(target=export_collection_images, args=(BUCKET, collection, country_alpha3, 5))
             else:
                 p = Process(target=export_collection_images, args=(BUCKET, collection, country_alpha3))
