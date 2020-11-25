@@ -1,0 +1,111 @@
+platform,area_served,type,country,country_clean,source
+afr100,Benin,country,Benin,Benin,https://afr100.org/content/countries
+afr100,Burkina Faso,country,Burkina Faso,Burkina Faso,https://afr100.org/content/countries
+afr100,Burundi,country,Burundi,Burundi,https://afr100.org/content/countries
+afr100,Cameroon,country,Cameroon,Cameroon,https://afr100.org/content/countries
+afr100,Central African Republic,country,Central African Republic,Central African Republic (the),https://afr100.org/content/countries
+afr100,Chad,country,Chad,Chad,https://afr100.org/content/countries
+afr100,Côte d’Ivoire,country,Côte d’Ivoire,Côte d'Ivoire,https://afr100.org/content/countries
+afr100,Democratic Republic of the Congo,country,Democratic Republic of the Congo,Congo (the Democratic Republic of the),https://afr100.org/content/countries
+afr100,Eswatini,country,Eswatini,Eswatini,https://afr100.org/content/countries
+afr100,Ethiopia,country,Ethiopia,Ethiopia,https://afr100.org/content/countries
+afr100,Ghana,country,Ghana,Ghana,https://afr100.org/content/countries
+afr100,Guinea,country,Guinea,Guinea,https://afr100.org/content/countries
+afr100,Kenya,country,Kenya,Kenya,https://afr100.org/content/countries
+afr100,Liberia,country,Liberia,Liberia,https://afr100.org/content/countries
+afr100,Madagascar,country,Madagascar,Madagascar,https://afr100.org/content/countries
+afr100,Malawi,country,Malawi,Malawi,https://afr100.org/content/countries
+afr100,Mali,country,Mali,Mali,https://afr100.org/content/countries
+afr100,Mozambique,country,Mozambique,Mozambique,https://afr100.org/content/countries
+afr100,Niger,country,Niger,Niger (the),https://afr100.org/content/countries
+afr100,Nigeria,country,Nigeria,Nigeria,https://afr100.org/content/countries
+afr100,Republic of Congo,country,Republic of Congo,Congo (the),https://afr100.org/content/countries
+afr100,Republic of Sudan,country,Republic of Sudan,Sudan (the),https://afr100.org/content/countries
+afr100,Rwanda,country,Rwanda,Rwanda,https://afr100.org/content/countries
+afr100,Senegal,country,Senegal,Senegal,https://afr100.org/content/countries
+afr100,Sierra Leone,country,Sierra Leone,Sierra Leone,https://afr100.org/content/countries
+afr100,South Africa,country,South Africa,South Africa,https://afr100.org/content/countries
+afr100,Tanzania,country,Tanzania,"Tanzania, United Republic of",https://afr100.org/content/countries
+afr100,Togo,country,Togo,Togo,https://afr100.org/content/countries
+afr100,Uganda,country,Uganda,Uganda,https://afr100.org/content/countries
+afr100,Zimbabwe,country,Zimbabwe,Zimbabwe,https://afr100.org/content/countries
+initative20x20,Argentina,country,Argentina,Argentina,https://initiative20x20.org/regions-countries
+initative20x20,Belize,country,Belize,Belize,https://initiative20x20.org/regions-countries
+initative20x20,Brazil,country,Brazil,Brazil,https://initiative20x20.org/regions-countries
+initative20x20,Chile,country,Chile,Chile,https://initiative20x20.org/regions-countries
+initative20x20,Colombia,country,Colombia,Colombia,https://initiative20x20.org/regions-countries
+initative20x20,Costa Rica,country,Costa Rica,Costa Rica,https://initiative20x20.org/regions-countries
+initative20x20,Dominican Republic,country,Dominican Republic,Dominican Republic (the),https://initiative20x20.org/regions-countries
+initative20x20,Ecuador,country,Ecuador,Ecuador,https://initiative20x20.org/regions-countries
+initative20x20,El Salvador,country,El Salvador,El Salvador,https://initiative20x20.org/regions-countries
+initative20x20,Guatemala,country,Guatemala,Guatemala,https://initiative20x20.org/regions-countries
+initative20x20,Honduras,country,Honduras,Honduras,https://initiative20x20.org/regions-countries
+initative20x20,Mexico,country,Mexico,Mexico,https://initiative20x20.org/regions-countries
+initative20x20,Nicaragua,country,Nicaragua,Nicaragua,https://initiative20x20.org/regions-countries
+initative20x20,Panama,country,Panama,Panama,https://initiative20x20.org/regions-countries
+initative20x20,Paraguay,country,Paraguay,Paraguay,https://initiative20x20.org/regions-countries
+initative20x20,Peru,country,Peru,Peru,https://initiative20x20.org/regions-countries
+initative20x20,Uruguay,country,Uruguay,Uruguay,https://initiative20x20.org/regions-countries
+cities4forests,Accra,city,Ghana,Ghana,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Addis Ababa,city,Ethiopia,Ethiopia,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Antananarivo,city,Madagascar,Madagascar,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Johannesburg,city,South Africa,South Africa,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Kigali,city,Rwanda,Rwanda,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Nairobi,city,Kenya,Kenya,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Amman,city,Jordan,Jordan,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Antalya,city,Turkey,Turkey,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Haifa,city,Israel,Israel,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Hyderabad,city,India,India,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Jakarta,city,Indonesia,Indonesia,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Kochi,city,India,India,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Lin’an,city,China,China,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Brussels,city,Belgium,Belgium,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Dublin,city,Ireland,Ireland,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Greater Manchester,city,UK,United Kingdom of Great Britain and Northern Ireland (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Oslo,city,Norway,Norway,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Skopje,city,North Macedonia,Republic of North Macedonia,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Tirana,city,Albania,Albania,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Vienna,city,Austria,Austria,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Aguascalientes,city,Mexico,Mexico,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Belo Horizonte,city,Brazil,Brazil,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Bogotá,city,Colombia,Colombia,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Campinas,city,Brazil,Brazil,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Culiacán,city,Mexico,Mexico,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,León,city,Mexico,Mexico,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Macapá,city,Brazil,Brazil,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Medellín,city,Colombia,Colombia,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Mérida,city,Mexico,Mexico,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Metropolitan Area of Guadalajara,city,Mexico,Mexico,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Mexico City,city,Mexico,Mexico,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Palmas,city,Brazil,Brazil,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Porto Velho,city,Brazil,Brazil,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Quito,city,Ecuador,Ecuador,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Rio Branco,city,Brazil,Brazil,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Salvador,city,Brazil,Brazil,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Santiago de Cali,city,Colombia,Colombia,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,São Luis,city,Brazil,Brazil,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,São Paulo,city,Brazil,Brazil,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Baltimore,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Detroit,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Eugene,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Honolulu,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,King County (WA),city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Little Rock,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Los Angeles,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Montreal,city,Canada,Canada,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,New York City,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,North Little Rock,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Oakland,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Philadelphia,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Portland (OR),city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Raleigh,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Sacramento,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Salem (OR),city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Salt Lake City,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,San Francisco,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Seattle,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Toronto,city,Canada,Canada,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Vancouver,city,Canada,Canada,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Washington D.C.,city,USA,United States of America (the),https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Auckland,city,New Zealand,New Zealand,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf
+cities4forests,Port Moresby,city,Papua New Guinea,Papua New Guinea,https://cities4forests.com/wp-content/uploads/2020/06/Cities4Forests-Cities-List-June2020.pdf

@@ -1,0 +1,68 @@
+﻿value,color,description,category,band,product
+1,05450a,Evergreen Needleleaf Forests: dominated by evergreen conifer trees (canopy >2m). Tree cover >60%.,forest,LC_Type1,MCD12Q1
+2,086a10,Evergreen Broadleaf Forests: dominated by evergreen broadleaf and palmate trees (canopy >2m). Tree cover >60%.,forest,LC_Type1,MCD12Q1
+3,54a708,Deciduous Needleleaf Forests: dominated by deciduous needleleaf (larch) trees (canopy >2m). Tree cover >60%.,forest,LC_Type1,MCD12Q1
+4,78d203,Deciduous Broadleaf Forests: dominated by deciduous broadleaf trees (canopy >2m). Tree cover >60%.,forest,LC_Type1,MCD12Q1
+5,9900,Mixed Forests: dominated by neither deciduous nor evergreen (40-60% of each) tree type (canopy >2m). Tree cover >60%.,forest,LC_Type1,MCD12Q1
+6,c6b044,Closed Shrublands: dominated by woody perennials (1-2m height) >60% cover.,shrubland,LC_Type1,MCD12Q1
+7,dcd159,Open Shrublands: dominated by woody perennials (1-2m height) 10-60% cover.,shrubland,LC_Type1,MCD12Q1
+8,dade48,Woody Savannas: tree cover 30-60% (canopy >2m).,savanna,LC_Type1,MCD12Q1
+9,fbff13,Savannas: tree cover 10-30% (canopy >2m).,savanna,LC_Type1,MCD12Q1
+10,b6ff05,Grasslands: dominated by herbaceous annuals (<2m).,grassland,LC_Type1,MCD12Q1
+11,27ff87,Permanent Wetlands: permanently inundated lands with 30-60% water cover and >10% vegetated cover.,wetland,LC_Type1,MCD12Q1
+12,c24f44,Croplands: at least 60% of area is cultivated cropland.,cropland,LC_Type1,MCD12Q1
+13,a5a5a5,"Urban and Built-up Lands: at least 30% impervious surface area including building materials, asphalt and vehicles.",urban,LC_Type1,MCD12Q1
+14,ff6d4c,"Cropland/Natural Vegetation Mosaics: mosaics of small-scale cultivation 40-60% with natural tree, shrub, or herbaceous vegetation.",cropland,LC_Type1,MCD12Q1
+15,69fff8,Permanent Snow and Ice: at least 60% of area is covered by snow and ice for at least 10 months of the year.,snow,LC_Type1,MCD12Q1
+16,f9ffa4,"Barren: at least 60% of area is non-vegetated barren (sand, rock, soil) areas with less than 10% vegetation.",barren,LC_Type1,MCD12Q1
+17,1c0dff,Water Bodies: at least 60% of area is covered by permanent water bodies.,water,LC_Type1,MCD12Q1
+0,1c0dff,Water Bodies: at least 60% of area is covered by permanent water bodies.,water,LC_Type2,MCD12Q1
+1,05450a,Evergreen Needleleaf Forests: dominated by evergreen conifer trees (canopy >2m). Tree cover >60%.,forest,LC_Type2,MCD12Q1
+2,086a10,Evergreen Broadleaf Forests: dominated by evergreen broadleaf and palmate trees (canopy >2m). Tree cover >60%.,forest,LC_Type2,MCD12Q1
+3,54a708,Deciduous Needleleaf Forests: dominated by deciduous needleleaf (larch) trees (canopy >2m). Tree cover >60%.,forest,LC_Type2,MCD12Q1
+4,78d203,Deciduous Broadleaf Forests: dominated by deciduous broadleaf trees (canopy >2m). Tree cover >60%.,forest,LC_Type2,MCD12Q1
+5,9900,Mixed Forests: dominated by neither deciduous nor evergreen (40-60% of each) tree type (canopy >2m). Tree cover >60%.,forest,LC_Type2,MCD12Q1
+6,c6b044,Closed Shrublands: dominated by woody perennials (1-2m height) >60% cover.,shrubland,LC_Type2,MCD12Q1
+7,dcd159,Open Shrublands: dominated by woody perennials (1-2m height) 10-60% cover.,shrubland,LC_Type2,MCD12Q1
+8,dade48,Woody Savannas: tree cover 30-60% (canopy >2m).,savanna,LC_Type2,MCD12Q1
+9,fbff13,Savannas: tree cover 10-30% (canopy >2m).,savanna,LC_Type2,MCD12Q1
+10,b6ff05,Grasslands: dominated by herbaceous annuals (<2m).,grassland,LC_Type2,MCD12Q1
+11,27ff87,Permanent Wetlands: permanently inundated lands with 30-60% water cover and >10% vegetated cover.,wetland,LC_Type2,MCD12Q1
+12,c24f44,Croplands: at least 60% of area is cultivated cropland.,cropland,LC_Type2,MCD12Q1
+13,a5a5a5,"Urban and Built-up Lands: at least 30% impervious surface area including building materials, asphalt and vehicles.",urban,LC_Type2,MCD12Q1
+14,ff6d4c,"Cropland/Natural Vegetation Mosaics: mosaics of small-scale cultivation 40-60% with natural tree, shrub, or herbaceous vegetation.",cropland,LC_Type2,MCD12Q1
+15,f9ffa4,"Non-Vegetated Lands: at least 60% of area is non-vegetated barren (sand, rock, soil) or permanent snow and ice with less than 10% vegetation.",barren or snow,LC_Type2,MCD12Q1
+0,1c0dff,Water Bodies: at least 60% of area is covered by permanent water bodies.,water,LC_Type3,MCD12Q1
+1,b6ff05,Grasslands: dominated by herbaceous annuals (<2m) including cereal croplands.,grassland,LC_Type3,MCD12Q1
+2,dcd159,Shrublands: shrub (1-2m) cover >10%.,shrubland,LC_Type3,MCD12Q1
+3,c24f44,Broadleaf Croplands: bominated by herbaceous annuals (<2m) that are cultivated with broadleaf crops.,cropland,LC_Type3,MCD12Q1
+4,fbff13,Savannas: between 10-60% tree cover (>2m).,savanna,LC_Type3,MCD12Q1
+5,086a10,Evergreen Broadleaf Forests: dominated by evergreen broadleaf and palmate trees (canopy >2m). Tree cover >60%.,forest,LC_Type3,MCD12Q1
+6,78d203,Deciduous Broadleaf Forests: dominated by deciduous broadleaf trees (canopy >2m). Tree cover >60%.,forest,LC_Type3,MCD12Q1
+7,05450a,Evergreen Needleleaf Forests: dominated by evergreen conifer trees (canopy >2m). Tree cover >60%.,forest,LC_Type3,MCD12Q1
+8,54a708,Deciduous Needleleaf Forests: dominated by deciduous needleleaf (larch) trees (canopy >2m). Tree cover >60%.,forest,LC_Type3,MCD12Q1
+9,f9ffa4,"Non-Vegetated Lands: at least 60% of area is non-vegetated barren (sand, rock, soil) or permanent snow and ice with less than 10% vegetation.",barren or snow,LC_Type3,MCD12Q1
+10,a5a5a5,"Urban and Built-up Lands: at least 30% impervious surface area including building materials, asphalt and vehicles.",urban,LC_Type3,MCD12Q1
+0,1c0dff,Water Bodies: at least 60% of area is covered by permanent water bodies.,water,LC_Type4,MCD12Q1
+1,05450a,Evergreen Needleleaf Vegetation: dominated by evergreen conifer trees and shrubs (>1m). Woody vegetation cover >10%.,vegetation,LC_Type4,MCD12Q1
+2,086a10,Evergreen Broadleaf Vegetation: dominated by evergreen broadleaf and palmate trees and shrubs (>1m). Woody vegetation cover >10%.,vegetation,LC_Type4,MCD12Q1
+3,54a708,Deciduous Needleleaf Vegetation: dominated by deciduous needleleaf (larch) trees and shrubs (>1m). Woody vegetation cover >10%.,vegetation,LC_Type4,MCD12Q1
+4,78d203,Deciduous Broadleaf Vegetation: dominated by deciduous broadleaf trees and shrubs (>1m). Woody vegetation cover >10%.,vegetation,LC_Type4,MCD12Q1
+5,9900,Annual Broadleaf Vegetation: dominated by herbaceous annuals (<2m). At least 60% cultivated broadleaf crops.,vegetation,LC_Type4,MCD12Q1
+6,b6ff05,Annual Grass Vegetation: dominated by herbaceous annuals (<2m) including cereal croplands.,vegetation,LC_Type4,MCD12Q1
+7,f9ffa4,"Non-Vegetated Lands: at least 60% of area is non-vegetated barren (sand, rock, soil) or permanent snow/ice with less than 10% vegetation.",barren or snow,LC_Type4,MCD12Q1
+8,a5a5a5,"Urban and Built-up Lands: at least 30% impervious surface area including building materials, asphalt, and vehicles.",urban,LC_Type4,MCD12Q1
+0,1c0dff,Water Bodies: at least 60% of area is covered by permanent water bodies.,water,LC_Type5,MCD12Q1
+1,05450a,Evergreen Needleleaf Trees: dominated by evergreen conifer trees (>2m). Tree cover >10%.,trees,LC_Type5,MCD12Q1
+2,086a10,Evergreen Broadleaf Trees: dominated by evergreen broadleaf and palmate trees (>2m). Tree cover >10%.,trees,LC_Type5,MCD12Q1
+3,54a708,Deciduous Needleleaf Trees: dominated by deciduous needleleaf (larch) trees (>2m). Tree cover >10%.,trees,LC_Type5,MCD12Q1
+4,78d203,Deciduous Broadleaf Trees: dominated by deciduous broadleaf trees (>2m). Tree cover >10%.,trees,LC_Type5,MCD12Q1
+5,dcd159,Shrub: Shrub (1-2m) cover >10%.,shrubland,LC_Type5,MCD12Q1
+6,b6ff05,Grass: dominated by herbaceous annuals (<2m) that are not cultivated.,grassland,LC_Type5,MCD12Q1
+7,dade48,Cereal Croplands: dominated by herbaceous annuals (<2m). At least 60% cultivated cereal crops.,cropland,LC_Type5,MCD12Q1
+8,c24f44,Broadleaf Croplands: dominated by herbaceous annuals (<2m). At least 60% cultivated broadleaf crops.,cropland,LC_Type5,MCD12Q1
+9,a5a5a5,"Urban and Built-up Lands: at least 30% impervious surface area including building materials, asphalt, and vehicles.",urban,LC_Type5,MCD12Q1
+10,69fff8,Permanent Snow and Ice: at least 60% of area is covered by snow and ice for at least 10 months of the year.,snow,LC_Type5,MCD12Q1
+11,f9ffa4,"Non-Vegetated Lands: at least 60% of area is non-vegetated barren (sand, rock, soil) with less than 10% vegetation.",barren,LC_Type5,MCD12Q1
+1,1c0dff,Water,water,LW,MCD12Q2
+2,f9ffa4,Land,land,LW,MCD12Q3
