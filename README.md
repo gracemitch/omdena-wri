@@ -3,7 +3,7 @@
 This repository contains Python scripts, notebooks, and csvs for geospatial analysis and visualizations of platform hazards. All documentation is saved within the main Omdena-WRI Google Drive folder.
 
 ## earth_engine
-* Code to export country-specifc metadata and images from Earth Engine to a Google Cloud Platform bucket is saved here.
+Code to export country-specifc metadata and images from Earth Engine to a Google Cloud Platform bucket is saved here.
 
 To run export of metadata in command line:
 
