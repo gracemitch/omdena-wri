@@ -8,6 +8,7 @@ Code to export country-specifc metadata and images from Earth Engine to a Google
 To run export of metadata in command line:
 
 `python -m export_images_by_country -c $COLLECTION_STR -dm`
+
 To run export of images in command line:
 
 `python -m export_images_by_country -c $COLLECTION_STR -di`
