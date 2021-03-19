@@ -13,8 +13,9 @@ To run export of images in command line:
 
 `python -m export_images_by_country -c $COLLECTION_STR -di`
 
-## Supported Earth Engine collections (options for COLLECTION_STR):
+### Supported Earth Engine collections:
 
+Options for `COLLECTION_STR`
 * MODIS_LST_day
 * MODIS_LST_8day
 * MODIS_land_cover
